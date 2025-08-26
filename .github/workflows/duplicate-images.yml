@@ -1,0 +1,42 @@
+name: Duplicate Bitnami Legacy images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  copy-docker-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Install skopeo
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y skopeo
+      
+      - name: Copy images
+        run: |
+          while IFS= read -r IMAGE; do
+            if [ -z "$IMAGE" ]; then continue; fi  # Skip empty lines
+            DEST_IMAGE="ghcr.io/${{ github.repository }}/$(basename $IMAGE)"
+            echo "Checking if $DEST_IMAGE exists..."
+            if skopeo inspect docker://"$DEST_IMAGE" > /dev/null 2>&1; then
+              echo "$DEST_IMAGE already exists, skipping..."
+            else
+              echo "Copying $IMAGE to $DEST_IMAGE"
+              skopeo copy --multi-arch all --preserve-digests docker://"$IMAGE" docker://"$DEST_IMAGE"
+            fi
+          done < "list_of_images.txt"
