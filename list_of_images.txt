@@ -3,8 +3,6 @@ docker.io/bitnamilegacy/kafka-exporter-archived:1.4.2-debian-11-r9
 docker.io/bitnamilegacy/kafka-exporter-archived:1.6.0-debian-11-r89
 docker.io/bitnamilegacy/kafka-exporter-archived:1.7.0-debian-11-r61
 docker.io/bitnamilegacy/kafka-exporter-archived:1.7.0-debian-12-r19
-docker.io/bitnamilegacy/kafka-exporter:1.7.0-debian-11-r61
-docker.io/bitnamilegacy/kafka-exporter:1.7.0-debian-12-r19
 docker.io/bitnamilegacy/kafka:2.8.1-debian-11-r7
 docker.io/bitnamilegacy/kafka:3.1.1-debian-11-r39
 docker.io/bitnamilegacy/kafka:3.4.0-debian-11-r33
