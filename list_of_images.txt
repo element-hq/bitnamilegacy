@@ -40,3 +40,4 @@ docker.io/bitnamilegacy/zookeeper:3.8.0-debian-10-r63
 docker.io/bitnamilegacy/zookeeper:3.8.1-debian-11-r31
 docker.io/bitnamilegacy/zookeeper:3.8.2-debian-11-r27
 docker.io/bitnamilegacy/zookeeper:3.8.2-debian-11-r4
+docker.io/bitnamilegacy/zookeeper:3.9.1-debian-12-r15
